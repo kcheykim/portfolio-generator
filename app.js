@@ -1,9 +1,12 @@
-var profileDataArgs = process.argv.slice(2, process.argv.length);
-console.log(profileDataArgs);
+const fs = require('fs');
+const generatePage = require('./page-template.js');
 
-// Notice the lack of parentheses around the `profileDataArr` parameter?
-const printProfileData = profileDataArr => {
-    profileDataArr.forEach(profileItem => console.log(profileItem));
-};
+const profileDataArgs = process.argv.slice(2);
 
-printProfileData(profileDataArgs);
+const [name, github] = profileDataArgs;
+
+fs.writeFile('index.html', generatePage(name, github), err => {
+    if (err) throw err;
+
+    console.log('Portfolio complete! check out index.html to see the output!');
+});
